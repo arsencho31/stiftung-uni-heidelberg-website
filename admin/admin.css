@@ -1,0 +1,55 @@
+.admin .bar{grid-template-columns:auto 1fr auto}
+.admin-main{max-width:920px;margin:0 auto;padding:1.6rem 1.4rem 5rem}
+.admin-main h1{display:block;font-family:var(--serif);font-size:2rem;margin:.2rem 0 .6rem;letter-spacing:-.01em}
+.admin-main h2{margin-top:2.2rem}
+.panel[hidden],[hidden]{display:none!important}
+.panel{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:1.6rem;box-shadow:var(--shadow)}
+.admin label{display:block;margin:.9rem 0;font-weight:600;font-size:.9rem;color:var(--ink-soft)}
+.admin label>span{display:block;margin-bottom:.3rem}
+.admin input:not([type=checkbox]):not([type=file]),.admin select,.admin textarea{width:100%;font:inherit;font-weight:400;color:var(--ink);padding:.7em .9em;border:1.5px solid var(--line);border-radius:12px;background:#fff}
+.admin textarea{resize:vertical;line-height:1.55}
+.admin input:focus,.admin select:focus,.admin textarea:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 4px rgba(236,116,4,.18)}
+.admin input[type=file]{font-size:.9rem;padding:.5rem 0}
+.admin label.check{display:flex;gap:.6rem;align-items:center;font-weight:500}
+.admin label.check input{width:auto}
+fieldset{border:0;padding:0;margin:0}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+@media(max-width:700px){.grid3,.grid2{grid-template-columns:1fr}}
+.row{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap}.row.between{justify-content:space-between}
+.muted{color:var(--ink-faint);font-size:.88rem}.small{font-size:.8rem}
+.err{color:#b00020;font-weight:600;min-height:1.4em}.ok{color:#1b6e2d;font-weight:600}
+code{background:var(--orange-pale);padding:.05em .4em;border-radius:6px;font-size:.88em}
+.help{background:var(--orange-pale);border-radius:14px;padding:.8rem 1.1rem;margin:1rem 0}
+.help summary{cursor:pointer;font-weight:700;color:var(--red-dark)}
+.help li{margin:.4rem 0}
+
+.tabs{display:flex;gap:.4rem;margin:1.6rem 0 .4rem;align-items:center;flex-wrap:wrap}
+.tabs button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:.45em 1.3em;font:700 .9rem var(--sans);cursor:pointer;color:var(--ink-soft)}
+.tabs button[aria-selected=true]{background:var(--red);border-color:var(--red);color:#fff}
+.tabs.mini{margin:0}.tabhint{margin-left:.6rem}
+.toolbar{display:flex;gap:.3rem;margin-bottom:.4rem;flex-wrap:wrap}
+.toolbar button{border:1.5px solid var(--line);background:#fff;border-radius:10px;min-width:2.4rem;padding:.3em .7em;font:700 .9rem var(--sans);cursor:pointer}
+.toolbar button:hover{border-color:var(--orange);color:var(--red)}
+
+.prevs img,.photolist img{width:120px;height:90px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
+.photolist{display:grid;gap:.7rem;margin-bottom:1rem}
+.photo-item{display:grid;grid-template-columns:120px 1fr auto;gap:.8rem;align-items:center;padding:.6rem;border:1px solid var(--line);border-radius:14px;background:var(--cream)}
+.photo-item label{margin:0}.photo-item input{margin-top:.2rem}
+@media(max-width:600px){.photo-item{grid-template-columns:90px 1fr}}
+.link-row{display:grid;grid-template-columns:1fr 1.4fr auto;gap:.6rem;align-items:end;margin-bottom:.6rem}
+@media(max-width:700px){.link-row{grid-template-columns:1fr}}
+.link-row label{margin:0}
+.x{border:0;background:none;color:#b00020;cursor:pointer;font-weight:700;font-size:.85rem;padding:.4rem}
+
+.actions.sticky{position:sticky;bottom:0;background:linear-gradient(0deg,#fff 70%,rgba(255,255,255,0));padding:1.2rem 0 .4rem;margin-top:2rem;align-items:center}
+.art-row{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;padding:1rem 0;border-bottom:1px solid var(--line)}
+.art-row:last-child{border:0}
+.art-row b{font-family:var(--serif);font-size:1.05rem;display:block}
+.art-row .meta{font-size:.8rem;color:var(--ink-faint)}
+.art-row .btns{display:flex;gap:.4rem;flex-wrap:wrap}
+.btn.sm{padding:.4em 1em;font-size:.82rem}.btn.danger{background:#fff;color:#b00020;border-color:#b00020}.btn.danger:hover{background:#b00020;color:#fff}
+
+.modal{position:fixed;inset:0;background:rgba(20,4,6,.75);z-index:400;display:grid;place-items:center;padding:1rem}
+.modal-box{background:var(--cream);border-radius:var(--r);max-width:860px;width:100%;max-height:92vh;overflow:auto;padding:1.2rem 1.4rem 2rem}
+.modal-box main h1{display:none}

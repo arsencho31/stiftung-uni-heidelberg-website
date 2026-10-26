@@ -1,0 +1,46 @@
+{
+ "articles": [
+  {
+   "id": "2026-07-24-tag-der-freunde-2026",
+   "date": "2026-07-24",
+   "category": "gdf",
+   "cover": "assets/img/gdf/540_gruppe.jpg",
+   "de": {
+    "title": "Tag der Freunde 2026 im Internationalen Wissenschaftsforum",
+    "summary": "Mitgliederversammlung, Preis der Freunde und Sommerparty der Universität am 24. Juli 2026."
+   },
+   "en": {
+    "title": "Tag der Freunde 2026 at the International Science Forum",
+    "summary": "General assembly, Preis der Freunde and the university’s summer party on 24 July 2026."
+   }
+  },
+  {
+   "id": "2025-10-24-ruprecht-karls-preise-2025",
+   "date": "2025-10-24",
+   "category": "stiftung",
+   "cover": "assets/img/stiftung/startseite_stiftung.jpg",
+   "de": {
+    "title": "Ruprecht-Karls-Preise 2025 in der Alten Aula verliehen",
+    "summary": "Fünf Nachwuchswissenschaftler:innen und die Trägerin des Fritz-Grunebaum-Preises wurden am 24. Oktober 2025 ausgezeichnet."
+   },
+   "en": {
+    "title": "Ruprecht-Karls Prizes 2025 presented in the Alte Aula",
+    "summary": "Five early-career researchers and the winner of the Fritz Grunebaum Prize were honoured on 24 October 2025."
+   }
+  },
+  {
+   "id": "2025-07-04-preis-der-freunde-2025",
+   "date": "2025-07-04",
+   "category": "gdf",
+   "cover": "assets/img/gdf/544_studytutors.jpg",
+   "de": {
+    "title": "Preis der Freunde 2025: Cheaper than therapy run club",
+    "summary": "Heidelbergs erster Social Run Club wird für sein Engagement für mentale Gesundheit ausgezeichnet."
+   },
+   "en": {
+    "title": "Preis der Freunde 2025: Cheaper than therapy run club",
+    "summary": "Heidelberg’s first social run club is honoured for its commitment to mental health."
+   }
+  }
+ ]
+}
