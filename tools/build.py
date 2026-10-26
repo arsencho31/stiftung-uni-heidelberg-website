@@ -5,10 +5,19 @@ German pages live in the project root (/ and /gdf/), English pages in /en/ and /
 Run from anywhere:  python3 tools/build.py
 Articles are NOT built here - they are JSON files in content/articles/ rendered in the browser.
 """
-import os, re, html
+import os, re, html, hashlib
 import content_de, content_en
 
 OUT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def ver(path):
+    """Short content hash appended as ?v=… so browsers never combine new pages with a cached old stylesheet."""
+    with open(os.path.join(OUT, path), "rb") as f:
+        return hashlib.sha1(f.read()).hexdigest()[:8]
+
+
+V_CSS, V_JS = ver("assets/style.css"), ver("assets/main.js")
 UNI_DS = "https://www.uni-heidelberg.de/datenschutzerklaerung_web.html"
 MAIL = "freunde@uni-heidelberg.de"
 
@@ -159,7 +168,7 @@ def render(lang, site, slug):
 <meta name="description" content="{html.escape(s["desc"])}">
 <meta name="theme-color" content="#b21f17">
 <link rel="icon" href="{root}assets/img/uni-hd-seal.jpeg">
-<link rel="stylesheet" href="{root}assets/style.css">
+<link rel="stylesheet" href="{root}assets/style.css?v={V_CSS}">
 </head>
 <body data-root="{root}" data-lang="{lang}" data-site="{site}" data-page="{slug}">
 <a class="skip" href="#inhalt">{t["skip"]}</a>
@@ -191,7 +200,7 @@ def render(lang, site, slug):
   <p class="volunteer">{t["volunteer"]}</p>
 </footer>
 </div>
-<script src="{root}assets/main.js"></script>
+<script src="{root}assets/main.js?v={V_JS}"></script>
 </body>
 </html>
 '''
@@ -207,6 +216,15 @@ def main():
                 with open(os.path.join(d, slug + ".html"), "w", encoding="utf-8") as f:
                     f.write(render(lang, site, slug))
                 n += 1
+    # the author panel is hand-written; only refresh its asset versions
+    adm = os.path.join(OUT, "admin", "index.html")
+    with open(adm, encoding="utf-8") as f:
+        a = f.read()
+    for name, v in (("../assets/style.css", V_CSS), ("../assets/main.js", V_JS),
+                    ("admin.css", ver("admin/admin.css")), ("admin.js", ver("admin/admin.js"))):
+        a = re.sub(r'"' + re.escape(name) + r'(\?v=[0-9a-f]+)?"', '"' + name + "?v=" + v + '"', a)
+    with open(adm, "w", encoding="utf-8") as f:
+        f.write(a)
     print("pages written:", n)
 
 
