@@ -43,13 +43,70 @@ code{background:var(--orange-pale);padding:.05em .4em;border-radius:6px;font-siz
 .x{border:0;background:none;color:#b00020;cursor:pointer;font-weight:700;font-size:.85rem;padding:.4rem}
 
 .actions.sticky{position:sticky;bottom:0;background:linear-gradient(0deg,#fff 70%,rgba(255,255,255,0));padding:1.2rem 0 .4rem;margin-top:2rem;align-items:center}
-.art-row{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;padding:1rem 0;border-bottom:1px solid var(--line)}
-.art-row:last-child{border:0}
-.art-row b{font-family:var(--serif);font-size:1.05rem;display:block}
-.art-row .meta{font-size:.8rem;color:var(--ink-faint)}
-.art-row .btns{display:flex;gap:.4rem;flex-wrap:wrap}
 .btn.sm{padding:.4em 1em;font-size:.82rem}.btn.danger{background:#fff;color:#b00020;border-color:#b00020}.btn.danger:hover{background:#b00020;color:#fff}
 
 .modal{position:fixed;inset:0;background:rgba(20,4,6,.75);z-index:400;display:grid;place-items:center;padding:1rem}
 .modal-box{background:var(--cream);border-radius:var(--r);max-width:860px;width:100%;max-height:92vh;overflow:auto;padding:1.2rem 1.4rem 2rem}
 .modal-box main h1{display:none}
+
+/* Kopfzeile, Anmeldung */
+.who{font-size:.8rem;font-weight:700;color:var(--red-dark);background:var(--orange-pale);padding:.35em .9em;border-radius:999px}
+.loading{text-align:center;color:var(--ink-faint);padding:3rem 0}
+.panel+.panel{margin-top:1.2rem}
+.login-card{max-width:440px;margin:2rem auto;text-align:left;position:relative;overflow:hidden}
+.login-card::after{content:"";position:absolute;right:-70px;top:-70px;width:220px;height:220px;background:var(--orange-pale);-webkit-mask:url(../assets/img/seal.svg) center/contain no-repeat;mask:url(../assets/img/seal.svg) center/contain no-repeat;opacity:.7;pointer-events:none}
+.login-card>*{position:relative;z-index:1}
+.seal.big{width:58px;height:58px;display:block;margin-bottom:.6rem}
+.btn.wide{width:100%;padding:.85em 1.4em;font-size:1rem}
+.center{text-align:center}
+.admin label>span.pw{display:flex;gap:.4rem;margin:0}.pw input{flex:1;min-width:0}
+.eye{border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:0 .8em;cursor:pointer;font-size:1rem}
+.linkish{background:none;border:0;color:var(--red);font:inherit;font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:.3rem 0}
+.linkish:hover{color:var(--orange)}
+.warn{background:#fff3e0;border-left:4px solid var(--orange);padding:.7rem 1rem;border-radius:10px;color:var(--ink);font-size:.92rem}
+.row.end{justify-content:flex-end;margin-top:1rem}
+
+/* Artikelliste mit Reihenfolge */
+.order-head{margin:.2rem 0 .6rem}.order-head p{margin:0;flex:1;min-width:240px}
+.art-list{list-style:none;margin:0;padding:0;display:grid;gap:.6rem}
+.art-row{display:grid;grid-template-columns:auto auto 76px 1fr auto;gap:.8rem;align-items:center;padding:.6rem .8rem;border:1.5px solid var(--line);border-radius:16px;background:#fff;transition:box-shadow .2s,border-color .2s,transform .2s}
+.art-row:hover{border-color:var(--orange-soft);box-shadow:var(--shadow)}
+.art-row.dragging{opacity:.45}
+.art-row.drop-before{box-shadow:0 -4px 0 0 var(--orange)}
+.art-row.drop-after{box-shadow:0 4px 0 0 var(--orange)}
+.art-row.moved{border-color:var(--orange);background:var(--cream)}
+.grip{cursor:grab;color:var(--ink-faint);font-size:1.2rem;line-height:1;padding:.3rem;user-select:none;touch-action:none}
+.grip:active{cursor:grabbing}
+.pos{font:800 .85rem var(--sans);color:var(--red);min-width:1.4rem;text-align:center}
+.thumb{width:76px;height:54px;border-radius:10px;object-fit:cover;background:var(--orange-pale);display:block}
+.art-row b{font-family:var(--serif);font-size:1.02rem;display:block;line-height:1.3}
+.art-row .meta{font-size:.78rem;color:var(--ink-faint)}
+.art-row .btns{display:flex;gap:.35rem;flex-wrap:wrap;justify-content:flex-end}
+.mv{border:1.5px solid var(--line);background:#fff;border-radius:10px;width:2.1rem;height:2.1rem;cursor:pointer;font-weight:800;color:var(--ink-soft)}
+.mv:hover:not(:disabled){border-color:var(--orange);color:var(--red)}.mv:disabled{opacity:.3;cursor:default}
+@media(max-width:760px){
+  .art-row{grid-template-columns:auto 60px 1fr;grid-template-areas:"pos thumb text" "btns btns btns"}
+  .art-row .grip{display:none}.art-row .pos{grid-area:pos}.art-row .thumb{grid-area:thumb;width:60px;height:46px}
+  .art-row>div:not(.btns){grid-area:text}.art-row .btns{grid-area:btns;justify-content:flex-start}
+}
+.orderbar{position:sticky;bottom:.8rem;margin-top:1rem;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;background:var(--burgundy);color:#fff;padding:.7rem 1rem;border-radius:16px;box-shadow:0 12px 30px -10px rgba(45,6,10,.6)}
+.orderbar span{flex:1;font-weight:600;font-size:.9rem}
+.orderbar .btn.ghost{color:#fff;border-color:rgba(255,255,255,.6)}
+
+/* Zugänge */
+.acc-list{display:grid;gap:.5rem;margin:.8rem 0 1rem}
+.acc-row{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;padding:.6rem .9rem;border:1.5px solid var(--line);border-radius:14px}
+.acc-row b{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.95rem}
+.acc-row .role{font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.15em .7em;border-radius:999px;background:var(--orange-pale);color:var(--red-dark)}
+.acc-row .role.owner{background:var(--red);color:#fff}
+.acc-row .since{font-size:.78rem;color:var(--ink-faint);flex:1}
+#addForm input,#replaceForm input{width:auto;flex:1;min-width:180px}
+.settings summary{cursor:pointer;font-weight:700;color:var(--red-dark)}
+
+/* Zugangsdaten-Fenster */
+.cred-box{max-width:560px;background:#fff}
+.cred-box h2{margin-top:0}
+.cred{display:grid;grid-template-columns:auto 1fr auto;gap:.6rem;align-items:center;padding:.6rem .8rem;border:1.5px solid var(--line);border-radius:12px;margin-bottom:.5rem}
+.cred b{font-family:ui-monospace,Menlo,Consolas,monospace}
+.cred code{font-size:1rem;background:var(--cream);padding:.3em .6em;user-select:all;word-break:break-all}
+@media(max-width:560px){.admin .bar .brand-text{display:none}.admin .bar-right{gap:.4rem}.admin-main{padding:1rem .7rem 4rem}.panel{padding:1.2rem}}

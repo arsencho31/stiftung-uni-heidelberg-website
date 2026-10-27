@@ -25,12 +25,12 @@ T = {  # interface strings
     "de": dict(lang_name="Deutsch", skip="Zum Inhalt springen", menu="Menü", news="Aktuelles", all_news="Alle Neuigkeiten",
                contact="Kontakt", imprint="Impressum", privacy="Datenschutz", other_lang="English", other_lang_code="EN",
                switch_label="Wechsel zwischen den Einrichtungen", nav_label="Hauptnavigation", lang_label="Sprache wählen",
-               volunteer="Diese Website entsteht ehrenamtlich auf freiwilliger Initiative.", with_uni="In Verbindung mit der",
+               volunteer="Diese Website entsteht ehrenamtlich auf freiwilliger Initiative.", authors="Autorenpanel", with_uni="In Verbindung mit der",
                read_more="Weiterlesen", site_short={"stiftung": "Stiftung", "gdf": "Gesellschaft der Freunde"}),
     "en": dict(lang_name="English", skip="Skip to content", menu="Menu", news="News", all_news="All news",
                contact="Contact", imprint="Legal notice", privacy="Privacy", other_lang="Deutsch", other_lang_code="DE",
                switch_label="Switch between the institutions", nav_label="Main navigation", lang_label="Choose language",
-               volunteer="This website is built voluntarily, on personal initiative.", with_uni="In association with",
+               volunteer="This website is built voluntarily, on personal initiative.", authors="Author panel", with_uni="In association with",
                read_more="Read more", site_short={"stiftung": "Foundation", "gdf": "Friends’ Association"}),
 }
 
@@ -196,7 +196,7 @@ def render(lang, site, slug):
 <div class="with-uni"><span>{t["with_uni"]}</span><img src="{root}assets/img/uni-hd-lockup-transparent.png" alt="Universität Heidelberg – Zukunft seit 1386" width="480" height="252" loading="lazy"></div>
 <footer>
   <div class="foot-brand">{seal}<p><b>{s["name"]}</b><br>Marstallstraße 6 · 69117 Heidelberg<br><a href="mailto:{MAIL}">{MAIL}</a></p></div>
-  <div class="foot-links"><a href="kontakt.html">{t["contact"]}</a><a href="impressum.html">{t["imprint"]}</a><a href="{UNI_DS}" target="_blank" rel="noopener">{t["privacy"]}</a></div>
+  <div class="foot-links"><a href="kontakt.html">{t["contact"]}</a><a href="impressum.html">{t["imprint"]}</a><a href="{UNI_DS}" target="_blank" rel="noopener">{t["privacy"]}</a><a href="{root}admin/" rel="nofollow">{t["authors"]}</a></div>
   <p class="volunteer">{t["volunteer"]}</p>
 </footer>
 </div>

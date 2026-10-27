@@ -13,10 +13,10 @@
   var I18N = {
     de: { stiftung: "Stiftung", gdf: "Gesellschaft der Freunde", both: "Stiftung & Freunde", read: "Weiterlesen", back: "← Alle Neuigkeiten",
           none: "Noch keine Artikel.", notfound: "Dieser Artikel wurde nicht gefunden.", links: "Weiterführende Links", gallery: "Fotos",
-          video: "Video abspielen", videoNote: "Mit dem Klick wird das Video vom Anbieter geladen.", filterSite: "Diese Einrichtung", filterAll: "Alle", share: "Teilen", copied: "Link kopiert", copy: "Kopiert", err: "Kopieren nicht möglich" },
+          panel: "Autorenpanel", editArt: "Artikel bearbeiten", newArt: "Neuer Artikel", video: "Video abspielen", videoNote: "Mit dem Klick wird das Video vom Anbieter geladen.", filterSite: "Diese Einrichtung", filterAll: "Alle", share: "Teilen", copied: "Link kopiert", copy: "Kopiert", err: "Kopieren nicht möglich" },
     en: { stiftung: "Foundation", gdf: "Friends’ Association", both: "Foundation & Friends", read: "Read more", back: "← All news",
           none: "No articles yet.", notfound: "This article could not be found.", links: "Further links", gallery: "Photos",
-          video: "Play video", videoNote: "Clicking loads the video from the provider.", filterSite: "This organisation", filterAll: "All", share: "Share", copied: "Link copied", copy: "Copied", err: "Could not copy" }
+          panel: "Author panel", editArt: "Edit article", newArt: "New article", video: "Play video", videoNote: "Clicking loads the video from the provider.", filterSite: "This organisation", filterAll: "All", share: "Share", copied: "Link copied", copy: "Copied", err: "Could not copy" }
   };
   var L = I18N[LANG] || I18N.de;
 
@@ -70,6 +70,14 @@
     });
   });
 
+  /* ---- Autorenmodus: wer im Autorenpanel angemeldet ist, sieht einen Bearbeiten-Knopf ---- */
+  var pill = null;
+  try { if (body.getAttribute("data-page") !== "admin" && (localStorage.getItem("uh-admin") || sessionStorage.getItem("uh-admin"))) {
+    pill = document.createElement("a"); pill.className = "author-pill"; pill.href = ROOT + "admin/"; pill.textContent = "✎ " + L.panel;
+    body.appendChild(pill);
+  } } catch (e) { /* Speicher gesperrt */ }
+  function setPill(hash, label) { if (pill) { pill.href = ROOT + "admin/" + hash; pill.textContent = label; } }
+
   /* ---- Artikelliste ---- */
   function fetchJSON(path) {
     return fetch(ROOT + path + "?v=" + Date.now()).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
@@ -87,7 +95,8 @@
   }
 
   var indexPromise = null;
-  function loadIndex() { return indexPromise || (indexPromise = fetchJSON("content/articles/index.json").then(function (j) { return (j.articles || []).slice().sort(function (a, b) { return a.date < b.date ? 1 : -1; }); })); }
+  // Reihenfolge = Reihenfolge in index.json (im Autorenpanel festgelegt)
+  function loadIndex() { return indexPromise || (indexPromise = fetchJSON("content/articles/index.json").then(function (j) { return j.articles || []; })); }
 
   var aside = $("[data-news-aside]");
   if (aside) loadIndex().then(function (list) {
@@ -96,6 +105,7 @@
   }, function () { aside.innerHTML = ""; });
 
   var listBox = $("[data-news-list]");
+  if (listBox) setPill("#new", "+ " + L.newArt);
   if (listBox) loadIndex().then(function (list) {
     var all = false;
     function draw() {
@@ -169,7 +179,7 @@
     var id = (new URLSearchParams(location.search).get("id") || "");
     if (!/^[a-z0-9-]+$/.test(id)) art.innerHTML = '<p class="empty">' + L.notfound + "</p>";
     else fetchJSON("content/articles/" + id + ".json").then(function (a) {
-      art.innerHTML = renderArticle(a, LANG); wireArticle(art);
+      art.innerHTML = renderArticle(a, LANG); wireArticle(art); setPill("#edit=" + id, "✎ " + L.editArt);
       var t = pick(a, LANG).title; if (t) document.title = t + " – " + document.title.split(" – ").pop();
     }, function () { art.innerHTML = '<p class="empty">' + L.notfound + "</p>"; });
   }

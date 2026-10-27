@@ -228,3 +228,7 @@ footer a{color:#fff}footer a:hover{color:var(--orange-soft)}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.btn,.card{transition:none}}
 @media print{body{background:#fff}body::before,.bar,.side-nav,aside.news,.hero::after{display:none}.shell{border:0;box-shadow:none}}
+/* Autorenmodus */
+.author-pill{position:fixed;right:1.1rem;bottom:1.1rem;z-index:250;display:inline-flex;align-items:center;gap:.4em;padding:.75em 1.3em;border-radius:999px;background:linear-gradient(135deg,var(--red),var(--burgundy));color:#fff;font:700 .9rem/1 var(--sans);text-decoration:none;border:2px solid var(--orange);box-shadow:0 14px 30px -10px rgba(45,6,10,.7);transition:transform .2s}
+.author-pill:hover{color:#fff;transform:translateY(-2px)}
+@media print{.author-pill{display:none}}

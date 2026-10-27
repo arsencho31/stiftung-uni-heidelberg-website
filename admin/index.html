@@ -6,8 +6,8 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Autorenpanel – Stiftung Universität Heidelberg</title>
 <link rel="icon" href="../assets/img/uni-hd-seal.jpeg">
-<link rel="stylesheet" href="../assets/style.css?v=40020d41">
-<link rel="stylesheet" href="admin.css?v=e856c883">
+<link rel="stylesheet" href="../assets/style.css?v=9664453e">
+<link rel="stylesheet" href="admin.css?v=dcf46265">
 </head>
 <body data-root="../" data-lang="de" data-site="stiftung" data-page="admin">
 <div class="shell admin">
@@ -15,39 +15,97 @@
     <a class="brand" href="../index.html"><span class="seal" role="img" aria-label="Siegel"></span><span class="brand-text"><b data-i="title">Autorenpanel</b><small>Stiftung · Gesellschaft der Freunde</small></span></a>
     <span></span>
     <div class="bar-right">
+      <span class="who" id="who" hidden></span>
       <button class="lang" type="button" id="uiLang" aria-label="Sprache der Oberfläche / Язык интерфейса"><span>RU</span></button>
-      <button class="btn ghost" type="button" id="logout" hidden data-i="logout">Abmelden</button>
+      <button class="btn ghost sm" type="button" id="logout" hidden data-i="logout">Abmelden</button>
     </div>
   </header>
 
   <main class="admin-main">
-    <!-- Anmeldung -->
-    <section id="login" class="panel">
+    <p class="loading" id="boot" data-i="checking">Einen Moment …</p>
+
+    <!-- Anmeldung mit Login und Passwort -->
+    <section id="login" class="panel login-card" hidden>
+      <span class="seal big" aria-hidden="true"></span>
       <h1 data-i="loginTitle">Anmelden</h1>
-      <p data-i="loginIntro">Dieses Panel veröffentlicht Artikel direkt im GitHub-Repository der Website. Zum Anmelden brauchen Sie einen persönlichen Zugriffstoken (einmalig erstellen, bleibt nur in Ihrem Browser).</p>
-      <details class="help"><summary data-i="howTitle">So erstellen Sie den Token (2 Minuten)</summary>
-        <ol>
-          <li data-i="how1">Öffnen Sie <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> (bei GitHub angemeldet).</li>
-          <li data-i="how2">„Repository access“: <b>Only select repositories</b> → <code>stiftung-uni-heidelberg-website</code> wählen.</li>
-          <li data-i="how3">„Permissions“ → „Repository permissions“ → <b>Contents: Read and write</b>.</li>
-          <li data-i="how4">„Generate token“ klicken und den Token (beginnt mit <code>github_pat_</code>) hier einfügen.</li>
-        </ol>
-        <p data-i="how5">Weitere Redakteur:innen: unter GitHub → Repository → Settings → Collaborators einladen; jede Person erstellt ihren eigenen Token.</p>
-      </details>
-      <form id="loginForm" autocomplete="off">
-        <label><span data-i="tokenLabel">GitHub-Token</span><input id="token" type="password" required spellcheck="false" autocomplete="off"></label>
-        <label><span data-i="emailLabel">E-Mail für die Übersetzung (optional – erhöht das kostenlose Tageslimit)</span><input id="email" type="email" autocomplete="off"></label>
+      <p class="muted" data-i="loginIntro">Für Redakteurinnen und Redakteure der Website.</p>
+      <form id="loginForm">
+        <label><span data-i="userLabel">Login</span><input id="user" autocomplete="username" autocapitalize="none" spellcheck="false" required placeholder="admin1"></label>
+        <label><span data-i="pwLabel">Passwort</span>
+          <span class="pw"><input id="pw" type="password" autocomplete="current-password" required spellcheck="false"><button type="button" class="eye" data-eye="pw" aria-label="Passwort anzeigen">👁</button></span></label>
         <label class="check"><input id="remember" type="checkbox" checked> <span data-i="remember">Auf diesem Gerät angemeldet bleiben</span></label>
-        <button class="btn" type="submit" data-i="login">Anmelden</button>
+        <button class="btn wide" type="submit" id="loginBtn" data-i="login">Anmelden</button>
         <p id="loginErr" class="err" role="alert"></p>
+      </form>
+      <p class="muted small center"><span data-i="forgot">Passwort vergessen? Bitte an admin1 wenden.</span><br><button type="button" class="linkish" id="toSetup" data-i="toSetup">Ersteinrichtung / Notfallzugang</button></p>
+    </section>
+
+    <!-- Ersteinrichtung: GitHub-Token einmalig hinterlegen, Zugänge erzeugen -->
+    <section id="setup" class="panel" hidden>
+      <h1 data-i="setupTitle">Ersteinrichtung</h1>
+      <p data-i="setupIntro">Einmalig für den Inhaber der Website: Der GitHub-Zugang wird verschlüsselt hinterlegt, danach erzeugt das Panel Logins mit sicheren Passwörtern. Alle weiteren Personen melden sich nur noch mit Login und Passwort an.</p>
+      <p class="warn" id="setupWarn" hidden data-i="setupWarn">Es gibt bereits Zugänge. Wenn Sie fortfahren, erhalten alle aufgeführten Logins neue Passwörter, und die alten Passwörter funktionieren nicht mehr.</p>
+      <details class="help"><summary data-i="howTitle">So erstellen Sie den GitHub-Token (2 Minuten)</summary>
+        <ol>
+          <li data-i="how1"></li>
+          <li data-i="how2"></li>
+          <li data-i="how3"></li>
+          <li data-i="how4"></li>
+          <li data-i="how5"></li>
+        </ol>
+      </details>
+      <form id="setupForm" autocomplete="off">
+        <label><span data-i="tokenLabel">GitHub-Token</span><input id="token" type="password" required spellcheck="false" autocomplete="off"></label>
+        <label><span data-i="namesLabel">Logins (durch Komma getrennt; der erste wird Inhaber und verwaltet die Zugänge)</span><input id="names" value="admin1, admin2, admin3" spellcheck="false" autocapitalize="none"></label>
+        <div class="row"><button class="btn" type="submit" id="setupBtn" data-i="setupBtn">Zugänge erzeugen</button><button class="btn ghost" type="button" id="setupBack" data-i="toLogin">Zur Anmeldung</button></div>
+        <p id="setupErr" class="err" role="alert"></p>
+      </form>
+    </section>
+
+    <!-- Abgelaufener GitHub-Token (nur Inhaber) -->
+    <section id="renew" class="panel" hidden>
+      <h1 data-i="renewTitle">GitHub-Zugang erneuern</h1>
+      <p data-i="renewIntro">Der hinterlegte GitHub-Token ist abgelaufen oder wurde widerrufen. Erstellen Sie einen neuen Token und fügen Sie ihn hier ein. Alle Passwörter bleiben gültig.</p>
+      <details class="help"><summary data-i="howTitle">So erstellen Sie den GitHub-Token (2 Minuten)</summary>
+        <ol><li data-i="how1"></li><li data-i="how2"></li><li data-i="how3"></li><li data-i="how4"></li><li data-i="how5"></li></ol>
+      </details>
+      <form id="renewForm" autocomplete="off">
+        <label><span data-i="tokenLabel">GitHub-Token</span><input id="renewToken" type="password" required spellcheck="false" autocomplete="off"></label>
+        <button class="btn" type="submit" data-i="renewBtn">Token ersetzen</button>
+        <p id="renewErr" class="err" role="alert"></p>
       </form>
     </section>
 
     <!-- Artikelübersicht -->
-    <section id="list" class="panel" hidden>
-      <div class="row between"><h1 data-i="articles">Artikel</h1><button class="btn alt" type="button" id="newBtn" data-i="newArticle">+ Neuer Artikel</button></div>
-      <p class="muted" id="repoInfo"></p>
-      <div id="rows"></div>
+    <section id="list" hidden>
+      <div class="panel">
+        <div class="row between"><h1 data-i="articles">Artikel</h1><button class="btn alt" type="button" id="newBtn" data-i="newArticle">+ Neuer Artikel</button></div>
+        <div class="row between order-head"><p class="muted" data-i="orderHint">Reihenfolge wie auf der Website: oben steht zuerst. Zum Verschieben am Griff ⠿ ziehen oder ↑ ↓ benutzen.</p><button class="btn ghost sm" type="button" id="sortDate" data-i="sortDate">Nach Datum sortieren</button></div>
+        <ol id="rows" class="art-list"></ol>
+        <div class="orderbar" id="orderBar" hidden><span data-i="orderDirty">Neue Reihenfolge ist noch nicht gespeichert.</span><button class="btn sm" type="button" id="orderSave" data-i="save">Speichern</button><button class="btn ghost sm" type="button" id="orderUndo" data-i="discard">Verwerfen</button></div>
+      </div>
+
+      <div class="panel" id="accounts" hidden>
+        <h2 data-i="accountsH">Zugänge</h2>
+        <p class="muted" data-i="accountsHint">Jede Person bekommt einen eigenen Login. Passwörter werden zufällig erzeugt und nur einmal angezeigt.</p>
+        <div id="accRows" class="acc-list"></div>
+        <form class="row" id="addForm" autocomplete="off">
+          <input id="newName" spellcheck="false" autocapitalize="none" aria-label="Login" placeholder="admin4">
+          <button class="btn sm" type="submit" data-i="addUser">+ Zugang hinzufügen</button>
+        </form>
+        <p class="err" id="accErr" role="alert"></p>
+        <details class="help"><summary data-i="replaceTok">GitHub-Token ersetzen (z. B. wenn er bald abläuft)</summary>
+          <form class="row" id="replaceForm" autocomplete="off">
+            <input id="replaceToken" type="password" spellcheck="false" aria-label="GitHub-Token" placeholder="github_pat_…">
+            <button class="btn sm" type="submit" data-i="renewBtn">Token ersetzen</button>
+          </form>
+        </details>
+      </div>
+
+      <details class="panel settings">
+        <summary data-i="settingsH">Einstellungen</summary>
+        <label><span data-i="emailLabel">E-Mail für die automatische Übersetzung (optional – erhöht das kostenlose Tageslimit)</span><input id="email" type="email" autocomplete="off"></label>
+      </details>
     </section>
 
     <!-- Editor -->
@@ -120,7 +178,21 @@
   </div>
 </div>
 
-<script src="../assets/main.js?v=d94cc826"></script>
-<script src="admin.js?v=8717ede3"></script>
+<!-- Neu erzeugte Zugangsdaten (nur einmal sichtbar) -->
+<div id="credModal" class="modal" hidden>
+  <div class="modal-box cred-box" role="dialog" aria-modal="true" aria-labelledby="credH">
+    <h2 id="credH" data-i="credH">Neue Zugangsdaten</h2>
+    <p class="warn" data-i="credWarn">Diese Passwörter werden nur jetzt angezeigt. Speichern Sie sie (z. B. im Passwort-Manager) und geben Sie jeder Person nur ihren eigenen Zugang weiter.</p>
+    <div id="credRows"></div>
+    <div class="row">
+      <button class="btn ghost sm" type="button" id="credCopy" data-i="copyAll">Alle kopieren</button>
+      <button class="btn ghost sm" type="button" id="credSave" data-i="saveFile">Als Textdatei speichern</button>
+    </div>
+    <div class="row end"><button class="btn" type="button" id="credDone" data-i="credDone">Gespeichert – weiter</button></div>
+  </div>
+</div>
+
+<script src="../assets/main.js?v=22f6ec1e"></script>
+<script src="admin.js?v=c0198a91"></script>
 </body>
 </html>
