@@ -102,16 +102,16 @@
     de: {
       how1: 'Bei GitHub anmelden und <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> öffnen.',
       how2: 'Name z. B. <code>Autorenpanel</code>; „Expiration“: so lange wie möglich (das Panel erinnert, wenn er abläuft).',
-      how3: '„Repository access“: <b>Only select repositories</b> → <code>stiftung-uni-heidelberg-website</code>.',
-      how4: '„Permissions“ → „Repository permissions“ → <b>Contents: Read and write</b>.',
+      how3: '„Repository access“: <b>Only select repositories</b> wählen und unter „Select repositories“ <code>stiftung-uni-heidelberg-website</code> auswählen.',
+      how4: '„Permissions“: Reiter <b>Repositories</b> → „Add permissions“ → <b>Contents</b> anhaken → daneben „Read-only“ auf <b>Read and write</b> umstellen. Der Reiter erscheint erst nach Schritt 3.',
       how5: '„Generate token“ klicken und den Token (beginnt mit <code>github_pat_</code>) hier einfügen. Er wird nur verschlüsselt gespeichert.',
       mdHelp: 'Formatierung: <code>## Zwischenüberschrift</code>, <code>- Listenpunkt</code>, <code>**fett**</code>, <code>*kursiv*</code>, <code>[Linktext](https://…)</code>. Leerzeile = neuer Absatz.'
     },
     ru: {
       how1: 'Войдите в GitHub и откройте <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a>.',
       how2: 'Имя, например, <code>Autorenpanel</code>; «Expiration» — максимально долгий срок (панель подскажет, когда он истечёт).',
-      how3: '«Repository access»: <b>Only select repositories</b> → <code>stiftung-uni-heidelberg-website</code>.',
-      how4: '«Permissions» → «Repository permissions» → <b>Contents: Read and write</b>.',
+      how3: '«Repository access»: выберите <b>Only select repositories</b> и в «Select repositories» отметьте <code>stiftung-uni-heidelberg-website</code>.',
+      how4: '«Permissions»: вкладка <b>Repositories</b> → «Add permissions» → отметьте <b>Contents</b> → рядом переключите «Read-only» на <b>Read and write</b>. Вкладка появляется только после шага 3.',
       how5: 'Нажмите «Generate token» и вставьте токен (начинается с <code>github_pat_</code>) сюда. Он сохраняется только в зашифрованном виде.',
       mdHelp: 'Форматирование: <code>## Подзаголовок</code>, <code>- пункт списка</code>, <code>**жирный**</code>, <code>*курсив*</code>, <code>[текст ссылки](https://…)</code>. Пустая строка = новый абзац.'
     }
