@@ -144,9 +144,10 @@
 
   /* ---------- GitHub-API ---------- */
   function gh(path, opts) {
-    opts = opts || {};
+    opts = opts || {}; opts.cache = "no-store"; // sonst liefert der Browser bis zu 60 s alte Stände (falsche sha → Konflikt)
     opts.headers = Object.assign({ Authorization: "Bearer " + (opts.tok || (sess && sess.token) || ""), Accept: "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" }, opts.headers || {});
-    return fetch(API + path, opts).then(function (r) {
+    // Repository selbst ohne Schrägstrich am Ende: ".../repo/" liefert 404 ohne CORS-Freigabe
+    return fetch(path ? API + path : API.slice(0, -1), opts).then(function (r) {
       if (r.status === 404 && opts.allow404) return null;
       if (!r.ok) return r.json().catch(function () { return {}; }).then(function (j) { var e = new Error(j.message || r.status); e.status = r.status; throw e; });
       return r.status === 204 ? {} : r.json();
@@ -741,7 +742,7 @@
       accCache = acc; remember = true; storeSess(); $("#token").value = "";
       showCreds(creds, function () { enter(); });
     }).catch(function (e) {
-      sess = null; $("#setupErr").textContent = (e.status === 401 || e.status === 404) ? t("bad_token") : e.message;
+      sess = null; $("#setupErr").textContent = (e.status === 401 || e.status === 404) ? t("bad_token") : e.message === "Failed to fetch" ? t("netErr") : e.message;
     }).then(function () { busy(btn, false, "setupBtn"); });
   };
 
